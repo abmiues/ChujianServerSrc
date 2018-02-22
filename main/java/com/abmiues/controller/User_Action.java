@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.abmiues.Push.ServerSocket;
 import com.abmiues.dao.Userdao;
 import com.abmiues.pojo.Camera;
 import com.abmiues.pojo.F_comment;
@@ -85,6 +86,7 @@ public class User_Action {
 	{
 		request.getSession().setAttribute("userid",userid);
 		request.getSession().setAttribute("pwd", pwd);
+		ServerSocket.Instance().push("haha", userid);
 		System.out.println("登陆:"+userid);
 		return userServer.login(userid,pwd);	
 	}

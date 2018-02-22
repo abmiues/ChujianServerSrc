@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.abmiues.Push.ServerSocket;
 import com.abmiues.pojo.Camera;
 import com.abmiues.pojo.Food;
 import com.abmiues.pojo.Order;
@@ -49,27 +50,18 @@ import org.springframework.stereotype.Controller;
 @Controller  
 @RequestMapping("seller") 
 public class Seller_Action {
+
+	/**
+	 * 构造函数会被spring框架自动调用
+	 */
+	public Seller_Action() {
+		ServerSocket.Instance().start();//启动推送接口
+	}
+
 	@Resource  
 	private SellerServer sellerServer;
-	private FileItem getUploadFileItem(List<FileItem> list) {
-		for (FileItem fileItem : list) {
-			if(!fileItem.isFormField()) {
-				return fileItem;
-			}
-		}
-		return null;
-	}
-	private String getUploadFileName(FileItem item) {
-		// 获取路径名
-		String value = item.getName();
-		// 索引到最后一个反斜杠
-		int start = value.lastIndexOf("/");
-		// 截取 上传文件的 字符串名字，加1是 去掉反斜杠，
-		String filename = value.substring(start + 1);
 
-		return filename;
-	}
-//@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")中produces和mvc中设置编码功能一样，在mvc中设置了，此处可不设置
+	//@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")中produces和mvc中设置编码功能一样，在mvc中设置了，此处可不设置
 	@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")
 	public @ResponseBody
 	String hello() {
@@ -110,13 +102,13 @@ public class Seller_Action {
 				OutputStream out=new FileOutputStream(targetimg);
 				byte[] buffer = new byte[1024];  
 				int byteread = 0;
-	            while ((byteread = in.read(buffer)) != -1) {  
-	                out.write(buffer, 0, byteread);  
-	            }  
-	            if (out != null)  
-                    out.close();  
-                if (in != null)  
-                    in.close();  
+				while ((byteread = in.read(buffer)) != -1) {  
+					out.write(buffer, 0, byteread);  
+				}  
+				if (out != null)  
+					out.close();  
+				if (in != null)  
+					in.close();  
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -126,7 +118,7 @@ public class Seller_Action {
 			} 
 		}
 		return result;
-		
+
 	}
 	//[end]	
 	//[start]登陆
@@ -158,7 +150,7 @@ public class Seller_Action {
 		String sellerid=(String) request.getSession().getAttribute("sellerid");
 		return sellerServer.getSellerInfo(sellerid);
 	}
-	
+
 	@RequestMapping(value="/upuserinfo")
 	public @ResponseBody
 	String upuserinfo(
@@ -177,7 +169,7 @@ public class Seller_Action {
 		return "111";
 	}
 
-	
+
 	@RequestMapping(value="/addcamera")
 	public @ResponseBody
 	String addcamera(@RequestParam(value="address",required=true,defaultValue="")String address,
@@ -196,7 +188,7 @@ public class Seller_Action {
 			request.getSession().setAttribute("camera", String.valueOf(camera.getCameraid()));
 		return result; 
 	}
-	
+
 	@RequestMapping(value="/getcamera")
 	public @ResponseBody
 	ArrayList<Camera> getcamera(HttpServletRequest request)
@@ -204,7 +196,7 @@ public class Seller_Action {
 		String sellerid=(String) request.getSession().getAttribute("sellerid");
 		return sellerServer.getCamera(sellerid);
 	}
-	
+
 	@RequestMapping(value="/updatecamera")
 	public @ResponseBody
 	String updatecamera(@RequestParam(value="cameraid",required=true,defaultValue="")int cameraid,
@@ -218,9 +210,9 @@ public class Seller_Action {
 		sellerServer.updateCamera(camera);
 		return "111";
 	}
-	
 
-	
+
+
 	//[start]
 	@RequestMapping(value="/addfood")
 	public @ResponseBody
@@ -247,8 +239,8 @@ public class Seller_Action {
 		}
 		return result;
 	}
-	
-	
+
+
 	//[end]
 	//[start]
 	@RequestMapping(value="/getmenu")
@@ -261,18 +253,18 @@ public class Seller_Action {
 		return sellerServer.getmenu(sellerid);
 	}
 	//[end]
-	
-	
+
+
 	@RequestMapping(value="/getorderlist")
 	public @ResponseBody
 	ArrayList<Order> getorderlist(HttpServletRequest request)
 	{
-		
+
 		String sellerid=(String) request.getSession().getAttribute("sellerid");
 		System.out.println("获取订单"+sellerid);
 		return sellerServer.getorders(sellerid);
 	}
-	
+
 	@RequestMapping(value="/getorderdetail")
 	public @ResponseBody
 	ArrayList<OrderDetail> getorderdetail(@RequestParam(value="orderid")int orderid,HttpServletRequest request)
@@ -280,6 +272,7 @@ public class Seller_Action {
 		System.out.println("获取订单明细");
 		return sellerServer.getOrderDetailByOrderid(orderid);
 	}
+	//上传文件操作，这里先提交文件名字，然后执行下面的上传方法，因为暂时没实现在一个报文里面添加字符数据和二进制数据，说以先发送文件名，保存，返回后再由客户端继续上传文件
 	@RequestMapping(value="/updatefilename")
 	public @ResponseBody
 	String updatefilename(@RequestParam(value="filename",required=true,defaultValue="")String filename,
@@ -288,7 +281,7 @@ public class Seller_Action {
 		request.getSession().setAttribute("filename", filename);
 		return "111";
 	}
-	
+
 	@RequestMapping(value="/upload",method=RequestMethod.POST)
 	public @ResponseBody
 	String  uploadFile(HttpServletRequest request)
@@ -358,7 +351,7 @@ public class Seller_Action {
 			else 
 				filetype=filename.substring(filename.lastIndexOf(".")+1);
 			String uploadtime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-			
+
 			// 保存后的浏览器访问路径
 			String fileUrl = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+path+"/"+saveName;
 
@@ -369,7 +362,7 @@ public class Seller_Action {
 			item.write(new File(path, saveName)); // 第三方提供的
 			BufferedImage image = ImageIO.read(new File(path, saveName));  
 			image = resize(image, 216, 200);  
-		     ImageIO.write(image, "png", new File(path, saveName));  
+			ImageIO.write(image, "png", new File(path, saveName));  
 			//[start]获取文件大小
 			//[end]
 
@@ -383,13 +376,13 @@ public class Seller_Action {
 		return "111";
 		//return userService.login((String)request.getSession().getAttribute("id"),(String)request.getSession().getAttribute("pwd"));
 	}
-    private static BufferedImage resize(BufferedImage source, int targetW,  
-            int targetH) {  
-        int type=source.getType();  
-        BufferedImage target=null;  
-        double sx=(double)targetW/source.getWidth();  
-        double sy=(double)targetH/source.getHeight();  
-       /* if(sx>sy)  
+	private static BufferedImage resize(BufferedImage source, int targetW,  
+			int targetH) {  
+		int type=source.getType();  
+		BufferedImage target=null;  
+		double sx=(double)targetW/source.getWidth();  
+		double sy=(double)targetH/source.getHeight();  
+		/* if(sx>sy)  
         {  
             sx=sy;  
             targetW=(int)(sx*source.getWidth());  
@@ -397,20 +390,37 @@ public class Seller_Action {
             sy=sx;  
             targetH=(int)(sy*source.getHeight());  
         }  
-          */
-        if(type==BufferedImage.TYPE_CUSTOM){  
-            ColorModel cm=source.getColorModel();  
-                WritableRaster raster=cm.createCompatibleWritableRaster(targetW, targetH);  
-                boolean alphaPremultiplied=cm.isAlphaPremultiplied();  
-                target=new BufferedImage(cm,raster,alphaPremultiplied,null);  
-        }else{  
-            target=new BufferedImage(targetW, targetH,type);  
-        }  
-        Graphics2D g=target.createGraphics();  
-        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);  
-        g.drawRenderedImage(source, AffineTransform.getScaleInstance(sx, sy));  
-        g.dispose();  
-        return target;  
-    }  
+		 */
+		if(type==BufferedImage.TYPE_CUSTOM){  
+			ColorModel cm=source.getColorModel();  
+			WritableRaster raster=cm.createCompatibleWritableRaster(targetW, targetH);  
+			boolean alphaPremultiplied=cm.isAlphaPremultiplied();  
+			target=new BufferedImage(cm,raster,alphaPremultiplied,null);  
+		}else{  
+			target=new BufferedImage(targetW, targetH,type);  
+		}  
+		Graphics2D g=target.createGraphics();  
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);  
+		g.drawRenderedImage(source, AffineTransform.getScaleInstance(sx, sy));  
+		g.dispose();  
+		return target;  
+	}  
+	private FileItem getUploadFileItem(List<FileItem> list) {
+		for (FileItem fileItem : list) {
+			if(!fileItem.isFormField()) {
+				return fileItem;
+			}
+		}
+		return null;
+	}
+	private String getUploadFileName(FileItem item) {
+		// 获取路径名
+		String value = item.getName();
+		// 索引到最后一个反斜杠
+		int start = value.lastIndexOf("/");
+		// 截取 上传文件的 字符串名字，加1是 去掉反斜杠，
+		String filename = value.substring(start + 1);
 
+		return filename;
+	}
 }
