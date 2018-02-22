@@ -1,0 +1,120 @@
+@CHARSET "UTF-8";
+body{
+margin:0 auto;
+
+}
+
+.login{
+	width:100%;
+	height:768px;
+	/*background-color: #70def7;
+	background:url(./images/bg2.png);*/
+}
+.main{
+	border-style: double;
+	opacity: 0.9; 
+}
+.maina{
+	width: 260px;
+	font-family:"微软雅黑";
+	font-size:12px;
+}
+.mal{
+	margin-left:110px;
+}
+.te-al{
+	text-align:right;
+}
+.te-al2{
+	text-align:left;
+}
+.te-al3{
+	text-align:center;
+}
+.flo{
+	float:left;
+}
+.flo2{
+	float:right;
+}
+.bord{
+	border-style: double;
+}
+.title{
+	font-family:"Broadway";
+	font-size:18px;
+	color:#35788b;
+	font-weight:bold;
+}
+.for{
+	width: 260px;
+    height: 110px;
+    background-color: #fff;
+	border:dashed thin #b7b7b7;
+}
+.fontsty{
+	font-family:"微软雅黑";
+	font-size:16px;
+	color:#ffffff;
+	font-weight:bold;
+	line-height:20px;	
+}
+.butt{
+	width:260px;
+	height:37px;
+	background-color: #2193da;
+	color:#fff;
+	font-family:"微软雅黑";
+	font-size:16px;
+}
+.buttreg{
+	width:200px;
+	height:37px;
+	color:#35788b;
+	background-color: #f0fafc;
+	font-family:"微软雅黑";
+	font-size:16px;
+	border:solid thin #b7b7b7;
+	margin-left:60px;
+}
+.reg{
+	width: 310px;
+	font-family:"微软雅黑";
+	font-size:12px;
+	padding-left:26px;
+	padding-top:10px;
+	border-top:dashed thin #b7b7b7;
+}
+.foot{
+	width:1366px;
+	font-size:10px;
+	color:#999;
+	text-align:center;
+}
+.ma_top{
+	margin-Top:10px;
+}
+.ma_top2{
+	margin-Top:20px;
+}
+.ma_bot{
+	margin-Bottom:10px;
+}
+.ma-left{
+	margin-left:25px;
+}
+.ma-left2{
+	margin-left:120px;
+}
+.ma-left3{
+	margin-left:100px;
+}
+.ma-right{
+	margin-right:20px;
+}
+.bg2{
+	background-color: #ffffff;
+}
+.wjw1{
+width:20%;
+}

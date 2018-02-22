@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.abmiues.dao.Commondao">
+	<resultMap id="seller" type="com.abmiues.pojo.Seller">
+		<id column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="permitid" property="permitid" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="INTEGER" />
+		<result column="exp" property="exp" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="food" type="com.abmiues.pojo.Food">
+		<id column="foodid" property="foodid" jdbcType="INTEGER" />
+		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="comment" property="comment" jdbcType="INTEGER" />
+		<result column="des" property="des" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="f_comment" type="com.abmiues.pojo.F_comment">
+		<id column="commentid" property="commentid" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="INTEGER" />
+		<result column="time" property="time" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="fooid" property="fooid" jdbcType="INTEGER" />
+		<result column="up" property="up" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="s_comment" type="com.abmiues.pojo.F_comment">
+		<id column="commentid" property="commentid" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="INTEGER" />
+		<result column="time" property="time" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getfoodcomment" resultMap="f_comment" parameterType="INTEGER">
+		SELECT * FROM f_comment where foodid=#{foodid,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getsellercomment" resultMap="s_comment" parameterType="String">
+		SELECT * FROM s_comment where sellerid=#{sellerid,jdbcType=VARCHAR}
+	</select>
+</mapper>

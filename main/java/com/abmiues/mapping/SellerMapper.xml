@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.abmiues.dao.Sellerdao">
+	<resultMap id="seller" type="com.abmiues.pojo.Seller">
+		<id column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="permitid" property="permitid" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="INTEGER" />
+		<result column="exp" property="exp" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="food" type="com.abmiues.pojo.Food">
+		<id column="foodid" property="foodid" jdbcType="INTEGER" />
+		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="comment" property="comment" jdbcType="INTEGER" />
+		<result column="des" property="des" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+	</resultMap>
+<resultMap id="order" type="com.abmiues.pojo.Order">
+		<id column="orderid" property="orderid" jdbcType="INTEGER" />
+		<result column="time" property="time" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="arrtime" property="arrtime" jdbcType="VARCHAR" />
+		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="name" property="username" jdbcType="VARCHAR" />
+		<result column="sellername" property="sellername" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="camera" type="com.abmiues.pojo.Camera">
+		<id column="cameraid" property="cameraid" jdbcType="INTEGER" />
+		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="camname" property="camname" jdbcType="VARCHAR" />
+	</resultMap>
+		<resultMap id="orderdetail" type="com.abmiues.pojo.OrderDetail">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="orderid" property="orderid" jdbcType="INTEGER" />
+		<result column="foodid" property="foodid" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="sellername" property="sellername" jdbcType="VARCHAR" />
+		<result column="foodname" property="foodname" jdbcType="VARCHAR" />
+		<result column="num" property="num" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<select id="login" resultType="String" parameterType="String">
+		SELECT
+		pwd FROM seller where sellerid=#{sellerid,jdbcType=VARCHAR}
+	</select>
+	<select id="getSellerInfo" resultMap="seller" parameterType="String">
+		SELECT * FROM seller where sellerid=#{sellerid,jdbcType=VARCHAR}
+	</select>
+	<insert id="register" parameterType="com.abmiues.pojo.Seller">
+		insert into seller
+		(sellerid, name, tel, pwd ,permitid)
+		values
+		(#{sellerid,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{permitid,jdbcType=VARCHAR})
+	</insert>
+	<select id="getMenu" resultMap="food" parameterType="String">
+		select * from food where sellerid=#{sellerid,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="addfood" parameterType="com.abmiues.pojo.Food" 
+	    useGeneratedKeys="true" keyProperty="foodid">
+	    insert into food (sellerid, name, price ,des,url)
+	    values
+		(#{sellerid,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{price,jdbcType=DOUBLE},#{des,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR})
+	</insert>
+	<update id="upUserInfo" parameterType="com.abmiues.pojo.Seller">
+	    update seller set name=#{name,jdbcType=VARCHAR},tel=#{tel,jdbcType=VARCHAR},permitid=#{permitid,jdbcType=VARCHAR} where sellerid=#{sellerid,jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="addCamera" parameterType="com.abmiues.pojo.Camera" 
+	    useGeneratedKeys="true" keyProperty="cameraid">
+	    insert into camera (sellerid, address,camname)
+	    values
+		(#{sellerid,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{camname,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateCamera" parameterType="com.abmiues.pojo.Camera">
+	    update camera set address=#{address,jdbcType=VARCHAR} where cameraid=#{cameraid,jdbcType=INTEGER}
+	</update>
+	<select id="getCamera" resultMap="camera" parameterType="String">
+		select * from camera where sellerid=#{sellerid,jdbcType=VARCHAR}
+	</select>
+	<select id="getOrderBySeller" resultMap="order" parameterType="String">
+		select orders.*,users.name from orders left join users on orders.userid=users.userid where  sellerid=#{sellerid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getOrderDetailByOrderid" resultMap="orderdetail" parameterType="INTEGER">
+		select *  from  orderdetail where orderid=#{orderid,jdbcType=INTEGER}
+	</select>
+</mapper>

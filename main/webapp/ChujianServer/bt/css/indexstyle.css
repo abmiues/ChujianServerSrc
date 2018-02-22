@@ -1,0 +1,144 @@
+@charset "utf-8";
+/* CSS Document */
+a {
+	color: #5e5e5e;
+	text-decoration: none;
+	outline: none
+}/*默认*/
+a:hover {
+	color: #34c400;
+	text-decoration: underline;
+}
+a.aBlue {
+	color: #0085ec;
+}/*蓝色*/
+a.aBlue:hover {
+	color: #34c400;
+}
+a.aGreen {
+	color: #34c400;
+}/*绿色*/
+a.aGreen:hover {
+	color: #f60;
+}
+a.aOran {
+	color: #f60;
+}/*橙色*/
+a.aOran:hover {
+	color: #f60;
+}
+a.aGray {
+	color: #a5a5a5;
+}/*灰色*/
+a.aGray:hover {
+	color: #34c400;
+}
+.fontGray {
+	color: #a5a5a5;
+}/*灰色*/
+.fontBlue {
+	color: #0085ec;
+}/*蓝色*/
+.fontGreen {
+	color: #34c400;
+}/*绿色*/
+.fontOran {
+	color: #f60;
+}/*橙色*/
+/*登录和注册*/
+* {margin:0; padding:0;}
+body {font-size:12px; color:#222; font-family:Verdana,Arial,Helvetica,sans-serif; background:#f0f0f0;}
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix {zoom:1;}
+ul,li {list-style:none;}
+/* qqshop focus */
+#focus {width:1356px; height:500px; overflow:hidden; position:relative;}
+#focus ul {height:380px; position:absolute;}
+#focus ul li {float:left; width:1356px; height:500px; overflow:hidden; position:relative; background:#fff;}
+#focus ul li div {position:absolute; overflow:hidden;}
+#focus .btnBg {position:absolute; width:1356px; height:20px; left:0; bottom:0; background:#fff; }
+#focus .btn {position:absolute; width:1366px; height:10px; padding:5px 0px ; right:0; bottom:0; text-align:left;}
+#focus .btn span {display:inline-block; _display:inline; _zoom:1; width:25px; height:10px; _font-size:0; margin-left:5px; cursor:pointer; background:#fff;}
+#focus .btn span.on {background:#fff;}
+.wid{
+	width:1356px
+}
+.layout {
+    width: 1100px;
+    margin: 0 auto;
+}
+.bg {
+    position: absolute;
+    width: 310px;
+    height: 500px;
+    background: #f2fefc;
+    right:200px;
+    top: 0px;
+     /*filter: alpha(opacity=80);
+   -moz-opacity: 0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;*/
+	margin-top:70px;
+}
+.indexReg {
+    position: absolute;
+    width: 310px;
+    height: 260px;
+    padding: 0 0;
+    right:200px;
+    top: 0px;
+    border-left: none;
+	text-align:left;
+	margin-top:100px;
+}
+.renshu {
+	text-align: center;
+	font-size: 15px;
+	color: #000;
+	font-family: "微软雅黑";
+	font-weight: bold;
+	margin-top: 15px;
+	height: 30px;
+	line-height: 30px;
+}
+.register {
+	font-size: 16px;
+	color: #000;
+	font-family: "微软雅黑";
+	margin-top: 20px;
+	height: 30px;
+	line-height: 30px;
+}
+a {
+    color: #5e5e5e;
+    text-decoration: none;
+    outline: none;
+}
+.nav1{
+	width:100%;
+	height:50px;
+}
+.nav1 ul{
+	float:right;
+	margin-right: 30px;
+}
+.nav1 li{
+	float:left;
+	margin-left: 20px;
+	margin-top: 30px;
+}
+.regn1{
+	width:200px;
+	height:35px;
+}
+.regi{
+	width:700px;
+	height:500px;
+}
+.regimg{
+	width:300px;
+	height:300px;
+}
+.regfile{
+margin-top:20px;
+}
