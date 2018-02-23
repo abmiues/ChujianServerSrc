@@ -14,6 +14,13 @@ import java.util.Map;
 
 public class ServerSocket extends Thread{
 	@Override
+	public synchronized void start() {
+		// TODO Auto-generated method stub
+		if(!_instance.isAlive())
+			super.start();
+	}
+
+	@Override
 	public void run() {
 		init();
 	}

@@ -31,8 +31,7 @@ public class MsgHandler implements Runnable {
 		{
 			_uid=jsonObject.getString("uid");
 			ServerSocket.Instance().SetSocketID(_socket, _uid);
-			ServerSocket.Instance().Send(_socket, "{}", _uid);
-			ServerSocket.Instance().push("push test", _uid);
+			ServerSocket.Instance().Send(_socket, "111", _uid);
 			System.out.println("get Connect:"+_uid);
 		}
 		else if(func.equals("heartBeat"))//通道的心跳操作，掉线操作暂未实现
