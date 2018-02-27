@@ -38,6 +38,7 @@
 		<result column="arrtime" property="arrtime" jdbcType="VARCHAR" />
 		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
 		<result column="sellername" property="sellername" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<resultMap id="orderdetail" type="com.abmiues.pojo.OrderDetail">

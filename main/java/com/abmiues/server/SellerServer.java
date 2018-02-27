@@ -103,4 +103,15 @@ public class SellerServer {
 	public ArrayList<OrderDetail> getOrderDetailByOrderid(int orderid){
 		return	sellerdao.getOrderDetailByOrderid(orderid);
 	}
+	public String updateorder(Order order)
+	{
+		sellerdao.updateOrder(order);
+		Order one= sellerdao.getOrderByOrderid(order.getOrderid());
+		if (one.getState()==order.getState())
+			return "111";
+		else 
+			return "000";
+
+
+	}
 }

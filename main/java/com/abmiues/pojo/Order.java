@@ -12,7 +12,14 @@ public class Order {
 	String sellername;
 	String sellerid;
 	String username;
+	int state;
 	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	public String getUsername() {
 		return username;
 	}

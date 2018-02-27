@@ -34,11 +34,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.abmiues.Push.ServerSocket;
 import com.abmiues.pojo.Camera;
+import com.abmiues.pojo.F_comment;
 import com.abmiues.pojo.Food;
 import com.abmiues.pojo.Order;
 import com.abmiues.pojo.OrderDetail;
+import com.abmiues.pojo.S_comment;
 import com.abmiues.pojo.Seller;
 import com.abmiues.server.SellerServer;
+import com.abmiues.server.UserServer;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -60,6 +63,8 @@ public class Seller_Action {
 
 	@Resource  
 	private SellerServer sellerServer;
+	@Resource
+	private UserServer userServer;
 
 	//@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")中produces和mvc中设置编码功能一样，在mvc中设置了，此处可不设置
 	@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")
@@ -254,6 +259,17 @@ public class Seller_Action {
 	}
 	//[end]
 
+	@RequestMapping(value="/updateorder")
+	public @ResponseBody
+	String updateorder(@RequestParam(value="state",required=true,defaultValue="")int state,
+						@RequestParam(value="orderid",required=true,defaultValue="")int orderid,
+						HttpServletRequest request)
+	{
+		Order order=new Order();
+		order.setOrderid(orderid);
+		order.setState(state);
+		return sellerServer.updateorder(order);
+	}
 
 	@RequestMapping(value="/getorderlist")
 	public @ResponseBody
@@ -282,6 +298,22 @@ public class Seller_Action {
 		return "111";
 	}
 
+	
+	@RequestMapping(value="/getfoodcomment")
+	public @ResponseBody
+	ArrayList<F_comment> getfoodcomment(@RequestParam(value="foodid")int foodid,HttpServletRequest request)
+	{
+		return userServer.getfoodcomment(foodid);
+	}
+	
+	@RequestMapping(value="/getsellercomment")
+	public @ResponseBody
+	ArrayList<S_comment> getsellercomment(@RequestParam(value="sellerid")String sellerid,HttpServletRequest request)
+	{
+		return userServer.getsellercomment(sellerid);
+	}
+	
+	
 	@RequestMapping(value="/upload",method=RequestMethod.POST)
 	public @ResponseBody
 	String  uploadFile(HttpServletRequest request)

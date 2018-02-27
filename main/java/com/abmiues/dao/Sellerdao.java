@@ -24,7 +24,7 @@ public interface Sellerdao {//商家数据库接口
 	
 	public void upFoodInfo(Food food);//TODO 更新食物信息
 	
-	public void updateOrder(HashMap<String, Object> map);//TODO 商家更新订单信息，传入订单信息
+	public void updateOrder(Order order);// 商家更新订单信息，传入订单信息
 	
 	public ArrayList<Order> getOrderBySeller(String sellerid);// 获取订单信息，传入商家id，返回订单列表
 	
@@ -35,4 +35,7 @@ public interface Sellerdao {//商家数据库接口
 	public ArrayList<Camera> getCamera(String sellerid);
 	
 	public void updateCamera(Camera camera);
+	
+	public Order getOrderByOrderid(int orderid);
+	
 }

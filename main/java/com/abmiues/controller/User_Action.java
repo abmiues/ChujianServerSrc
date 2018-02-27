@@ -29,6 +29,7 @@ import com.abmiues.pojo.OrderDetail;
 import com.abmiues.pojo.S_comment;
 import com.abmiues.pojo.Seller;
 import com.abmiues.pojo.User;
+import com.abmiues.server.SellerServer;
 import com.abmiues.server.UserServer;
 
 
@@ -39,6 +40,8 @@ import org.springframework.stereotype.Controller;
 public class User_Action {
 	@Resource  
 	private UserServer userServer;
+	@Resource
+	private SellerServer sellerServer;
 //@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")中produces和mvc中设置编码功能一样，在mvc中设置了，此处可不设置
 	@RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")
 	public @ResponseBody
@@ -305,6 +308,20 @@ public class User_Action {
 		System.out.println("获取订单明细");
 		return userServer.getOrderDetailByOrderid(orderid);
 	}
+	
+
+	@RequestMapping(value="/updateorder")
+	public @ResponseBody
+	String updateorder(@RequestParam(value="state",required=true,defaultValue="")int state,
+						@RequestParam(value="orderid",required=true,defaultValue="")int orderid,
+						HttpServletRequest request)
+	{
+		Order order=new Order();
+		order.setOrderid(orderid);
+		order.setState(state);
+		return sellerServer.updateorder(order);
+	}
+	
 	//[end]
 
 }
