@@ -6,8 +6,10 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.abmiues.Push.ServerSocket;
 import com.abmiues.dao.Sellerdao;
 import com.abmiues.dao.Userdao;
 import com.abmiues.pojo.Camera;
@@ -108,10 +110,15 @@ public class SellerServer {
 		sellerdao.updateOrder(order);
 		Order one= sellerdao.getOrderByOrderid(order.getOrderid());
 		if (one.getState()==order.getState())
+			{
+			CommonServer.PushToUser("orderStateChange",one,one.getUserid());
+			CommonServer.PushToSeller("orderStateChange",one,one.getSellerid());
 			return "111";
+			}
 		else 
 			return "000";
-
-
 	}
+	
+	
+	
 }
