@@ -111,8 +111,8 @@ public class SellerServer {
 		Order one= sellerdao.getOrderByOrderid(order.getOrderid());
 		if (one.getState()==order.getState())
 			{
-			CommonServer.PushToUser("orderStateChange",one,one.getUserid());
-			CommonServer.PushToSeller("orderStateChange",one,one.getSellerid());
+			CommonServer.PushToUser(PushFunc.orderStateChange,one,one.getUserid());
+			CommonServer.PushToSeller(PushFunc.orderStateChange,one,one.getSellerid());
 			return "111";
 			}
 		else 

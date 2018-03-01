@@ -31,13 +31,13 @@ public class MsgHandler implements Runnable {
 		{
 			_uid=jsonObject.getString("uid");
 			ServerSocket.Instance().SetSocketID(_socket, _uid);
-			ServerSocket.Instance().Send(_socket, "111", _uid);
+			ServerSocket.Instance().Send(_socket, "{\"func\":\"connect\",\"data\":\"\"}", _uid);
 			System.out.println("get Connect:"+_uid);
 		}
 		else if(func.equals("heartBeat"))//通道的心跳操作，掉线操作暂未实现
 		{
 			System.out.println("get HeartBeat:"+_uid);
-			ServerSocket.Instance().Send(_socket, "{HeartBeat back}", _uid);
+			ServerSocket.Instance().Send(_socket, "{\"func\":\"heartbeat\",\"data\":\"\"}", _uid);
 		}
 		
 		//执行结束，放回对象池。这个必须放在最后执行，且必须执行
