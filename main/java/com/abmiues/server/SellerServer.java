@@ -105,14 +105,14 @@ public class SellerServer {
 	public ArrayList<OrderDetail> getOrderDetailByOrderid(int orderid){
 		return	sellerdao.getOrderDetailByOrderid(orderid);
 	}
-	public String updateorder(Order order)
+	public String upOrderState(Order order)
 	{
-		sellerdao.updateOrder(order);
+		sellerdao.upOrderState(order);
 		Order one= sellerdao.getOrderByOrderid(order.getOrderid());
 		if (one.getState()==order.getState())
 			{
 			CommonServer.PushToUser(PushFunc.orderStateChange,one,one.getUserid());
-			CommonServer.PushToSeller(PushFunc.orderStateChange,one,one.getSellerid());
+			//CommonServer.PushToSeller(PushFunc.orderStateChange,one,one.getSellerid());
 			return "111";
 			}
 		else 

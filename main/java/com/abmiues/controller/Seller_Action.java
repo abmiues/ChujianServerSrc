@@ -268,7 +268,7 @@ public class Seller_Action {
 		Order order=new Order();
 		order.setOrderid(orderid);
 		order.setState(state);
-		return sellerServer.updateorder(order);
+		return sellerServer.upOrderState(order);
 	}
 
 	@RequestMapping(value="/getorderlist")

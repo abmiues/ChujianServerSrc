@@ -147,9 +147,21 @@ public class UserServer {
 		return 0;
 	}
 	
+	public String upOrderState(Order order)
+	{
+		userdao.upOrderState(order);
+		Order one= userdao.getOrderByOrderid(order.getOrderid());
+		if (one.getState()==order.getState())
+			{
+			CommonServer.PushToSeller(PushFunc.orderStateChange,one,one.getSellerid());//推送给商家
+			return "111";
+			}
+		else 
+			return "000";
+	}
 	
 	//这里本来是为了做网络短信的，结果测试失败了，就放在不用了
-	public String templateSMS(String accountSid, String authToken,
+	/*public String templateSMS(String accountSid, String authToken,
 			String appId, String templateId, String to, String param) {
 		// TODO Auto-generated method stub
 		String result = "";
@@ -209,6 +221,6 @@ public class UserServer {
             e.printStackTrace();
         }
 		return result;
-	}
+	}*/
 
 }

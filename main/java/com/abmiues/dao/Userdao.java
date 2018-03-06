@@ -41,4 +41,8 @@ public interface Userdao {//用户数据库接口
 	
 	public void updateUserInfo(User user);//TODO 更新用户信息，传入用户信息
 	
+	public void upOrderState(Order order);// 更新订单状态，传入订单信息
+	
+	public Order getOrderByOrderid(int orderid);//根据订单id获取订单信息
+	
 }

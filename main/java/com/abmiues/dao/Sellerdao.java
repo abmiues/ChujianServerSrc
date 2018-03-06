@@ -24,7 +24,7 @@ public interface Sellerdao {//商家数据库接口
 	
 	public void upFoodInfo(Food food);//TODO 更新食物信息
 	
-	public void updateOrder(Order order);// 商家更新订单信息，传入订单信息
+	public void upOrderState(Order order);// 商家更新订单信息，传入订单信息
 	
 	public ArrayList<Order> getOrderBySeller(String sellerid);// 获取订单信息，传入商家id，返回订单列表
 	

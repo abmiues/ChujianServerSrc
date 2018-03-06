@@ -319,7 +319,7 @@ public class User_Action {
 		Order order=new Order();
 		order.setOrderid(orderid);
 		order.setState(state);
-		return sellerServer.updateorder(order);
+		return userServer.upOrderState(order);
 	}
 	
 	//[end]

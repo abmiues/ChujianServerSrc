@@ -40,7 +40,7 @@
 		<result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 	</resultMap>
-	
+		
 	<select id="getfoodcomment" resultMap="f_comment" parameterType="INTEGER">
 		SELECT * FROM f_comment where foodid=#{foodid,jdbcType=INTEGER}
 	</select>
@@ -61,4 +61,5 @@
 		values
 		(#{sellerid,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{userid,jdbcType=VARCHAR},#{score,jdbcType=INTEGER},#{time,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR})
 	</insert>
+
 </mapper>

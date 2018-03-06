@@ -20,7 +20,7 @@
 		<result column="des" property="des" jdbcType="VARCHAR" />
 		<result column="url" property="url" jdbcType="VARCHAR" />
 	</resultMap>
-<resultMap id="order" type="com.abmiues.pojo.Order">
+	<resultMap id="order" type="com.abmiues.pojo.Order">
 		<id column="orderid" property="orderid" jdbcType="INTEGER" />
 		<result column="time" property="time" jdbcType="VARCHAR" />
 		<result column="userid" property="userid" jdbcType="VARCHAR" />
@@ -78,10 +78,6 @@
 	    update seller set name=#{name,jdbcType=VARCHAR},tel=#{tel,jdbcType=VARCHAR},permitid=#{permitid,jdbcType=VARCHAR} where sellerid=#{sellerid,jdbcType=VARCHAR}
 	</update>
 	
-	<update id="updateOrder" parameterType="com.abmiues.pojo.Order">
-	    update orders set state=#{state,jdbcType=INTEGER} where orderid=#{orderid,jdbcType=INTEGER}
-	</update>
-	
 	<insert id="addCamera" parameterType="com.abmiues.pojo.Camera" 
 	    useGeneratedKeys="true" keyProperty="cameraid">
 	    insert into camera (sellerid, address,camname)
@@ -103,6 +99,11 @@
 	</select>
 	
 	<select id="getOrderByOrderid" resultMap="order" parameterType="INTEGER">
-		select *  from  orders where orderid=#{orderid,jdbcType=INTEGER}
+	    select orders.*,users.name from orders left join users on orders.userid=users.userid where  orderid=#{orderid,jdbcType=INTEGER}
 	</select>
+	
+	<update id="upOrderState" parameterType="com.abmiues.pojo.Order">
+	    update orders set state=#{state,jdbcType=INTEGER} where orderid=#{orderid,jdbcType=INTEGER}
+	</update>
+	
 </mapper>

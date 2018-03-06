@@ -26,7 +26,7 @@ public class CommonServer {
 	{
 		String pushstr;
 		try {
-			pushstr = "{\"func\":\""+func+"\",\"data\":\""+new ObjectMapper().writeValueAsString(obj)+"\"}";
+			pushstr = "{\"func\":\""+func+"\",\"data\":"+new ObjectMapper().writeValueAsString(obj)+"}";
 			ServerSocket.Instance().push(pushstr, uid+"_u");
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
@@ -51,7 +51,7 @@ public class CommonServer {
 	{
 		String pushstr;
 		try {
-			pushstr = "{\"func\":\""+func+"\",\"data\":\""+new ObjectMapper().writeValueAsString(obj)+"\"}";
+			pushstr = "{\"func\":\""+func+"\",\"data\":"+new ObjectMapper().writeValueAsString(obj)+"}";
 			ServerSocket.Instance().push(pushstr, sellerid+"_s");
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
